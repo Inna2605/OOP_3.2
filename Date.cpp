@@ -58,100 +58,113 @@ void Date::Show()
 
 void Date::ShowDifference()
 {
-    cout << "Разница между датами в днях: ";
+    cout << "\n\nРазница между датами в днях: ";
     cout << getDay();
 }
 
 Date Date::operator-(Date date2) //разность двух дат
 {
     Date difference;
-    if (Year % 400 == 0 || Year % 4 == 0) // Проверка на високосный год
+    int DayMonth;
+    switch (Month)
     {
-        switch (Month)
-        {
-        case 1: {Day = Day; }break;
-        case 2: {Day = Day + 31; }break;
-        case 3: {Day = Day + 31 + 29; }break;
-        case 4: {Day = Day + 31 + 29 + 31; }break;
-        case 5: {Day = Day + 31 + 29 + 31 + 30; }break;
-        case 6: {Day = Day + 31 + 29 + 31 + 30 + 31; }break;
-        case 7: {Day = Day + 31 + 29 + 31 + 30 + 31 + 30; }break;
-        case 8: {Day = Day + 31 + 29 + 31 + 30 + 31 + 30 + 31; }break;
-        case 9: {Day = Day + 31 + 29 + 31 + 30 + 31 + 30 + 31 + 31; }break;
-        case 10: {Day = Day + 31 + 29 + 31 + 30 + 31 + 30 + 31 + 30 + 30; }break;
-        case 11: {Day = Day + 31 + 29 + 31 + 30 + 31 + 30 + 31 + 30 + 31 + 30; }break;
-        case 12: {Day = Day + 31 + 29 + 31 + 30 + 31 + 30 + 31 + 30 + 31 + 30 + 31; }break;
+    case 1: {Day = Day; }break;
+    case 2: {Day = Day + 31; }break;
+    case 3: {Day = Day + 31 + 28; }break;
+    case 4: {Day = Day + 31 + 28 + 31; }break;
+    case 5: {Day = Day + 31 + 28 + 31 + 30; }break;
+    case 6: {Day = Day + 31 + 28 + 31 + 30 + 31; }break;
+    case 7: {Day = Day + 31 + 28 + 31 + 30 + 31 + 30; }break;
+    case 8: {Day = Day + 31 + 28 + 31 + 30 + 31 + 30 + 31; }break;
+    case 9: {Day = Day + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31; }break;
+    case 10: {Day = Day + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30; }break;
+    case 11: {Day = Day + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31; }break;
+    case 12: {Day = Day + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30; }break;
+    }
+     
+    switch (date2.Month)
+    {
+    case 1: {date2.Day = date2.Day; }break;
+    case 2: {date2.Day = date2.Day + 31; }break;
+    case 3: {date2.Day = date2.Day + 31 + 28; }break;
+    case 4: {date2.Day = date2.Day + 31 + 28 + 31; }break;
+    case 5: {date2.Day = date2.Day + 31 + 28 + 31 + 30; }break;
+    case 6: {date2.Day = date2.Day + 31 + 28 + 31 + 30 + 31; }break;
+    case 7: {date2.Day = date2.Day + 31 + 28 + 31 + 30 + 31 + 30; }break;
+    case 8: {date2.Day = date2.Day + 31 + 28 + 31 + 30 + 31 + 30 + 31; }break;
+    case 9: {date2.Day = date2.Day + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31; }break;
+    case 10: {date2.Day = date2.Day + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30; }break;
+    case 11: {date2.Day = date2.Day + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31; }break;
+    case 12: {date2.Day = date2.Day + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30; }break;
+    }
+    if (Year == date2.Year) {
+        if ((Year % 400 == 0 || Year % 4 == 0) &&((Month == 1 || date2.Month == 1) ||(Month == 2 || date2.Month == 2))){
+            if (Day > date2.Day) {
+                difference.Day = (Day - date2.Day) + 1;
+            }
+            else if (Day < date2.Day) {
+                difference.Day = (date2.Day - Day) + 1;
+            }
         }
-        
-        if (Year == date2.Year) {
+        else {
             if (Day > date2.Day) {
                 difference.Day = Day - date2.Day;
             }
             else if (Day < date2.Day) {
                 difference.Day = date2.Day - Day;
-            }
-        }
-        else if (Year > date2.Year) {
-            int Y = (((Year - date2.Year) / 4) * 366) + (((Year - date2.Year) - ((Year - date2.Year) / 4)) * 365);
-            if (Day > date2.Day) {
-                difference.Day = (Day - date2.Day) + Y;
-            }
-            else if (Day < date2.Day) {
-                difference.Day = (date2.Day - Day) + Y;
-            }
-        }
-        else if (Year < date2.Year) {
-            int Y = (((date2.Year - Year) / 4) * 366) + (((date2.Year - Year) - ((date2.Year - Year) / 4)) * 365);
-            if (Day > date2.Day) {
-                difference.Day = (Day - date2.Day) + Y;
-            }
-            else if (Day < date2.Day) {
-                difference.Day = (date2.Day - Day) + Y;
             }
         }
     }
-    else if (Year % 100 != 0)// Проверка на не високосный год
-    {
-        switch (Month)
-        {
-        case 1: {Day = Day; }break;
-        case 2: {Day = Day + 31; }break;
-        case 3: {Day = Day + 31 + 28; }break;
-        case 4: {Day = Day + 31 + 28 + 31; }break;
-        case 5: {Day = Day + 31 + 28 + 31 + 30; }break;
-        case 6: {Day = Day + 31 + 28 + 31 + 30 + 31; }break;
-        case 7: {Day = Day + 31 + 28 + 31 + 30 + 31 + 30; }break;
-        case 8: {Day = Day + 31 + 28 + 31 + 30 + 31 + 30 + 31; }break;
-        case 9: {Day = Day + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31; }break;
-        case 10: {Day = Day + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 30 + 30; }break;
-        case 11: {Day = Day + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 30 + 31 + 30; }break;
-        case 12: {Day = Day + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 30 + 31 + 30 + 31; }break;
-        }
-        if (Year == date2.Year) {
-            if (Day > date2.Day) {
-                difference.Day = Day - date2.Day;
+    else if (Year > date2.Year) {
+        if ((Year - date2.Year) == 1 && (date2.Month - Month) == 11) {
+            difference.Day = (365 - date2.Day) + Day;
+        }    
+        else if ((Year - date2.Year) >= 4) {
+            if (Year % 400 == 0 || Year % 4 == 0) {
+                difference.Day = (Day - date2.Day) + ((Year - date2.Year) * 365) + ((Year - date2.Year) / 4) + 1;                
             }
-            else if (Day < date2.Day) {
-                difference.Day = date2.Day - Day;
+            else {
+                 difference.Day = (Day - date2.Day) + ((Year - date2.Year) * 365) + ((Year - date2.Year) / 4);
             }
         }
-        else if (Year > date2.Year) {
-            int Y = (((Year - date2.Year) / 4) * 366) + (((Year - date2.Year) - ((Year - date2.Year) / 4)) * 365);
-            if (Day > date2.Day) {
-                difference.Day = (Day - date2.Day) + Y;
-            }
-            else if (Day < date2.Day) {
-                difference.Day = (date2.Day - Day) + Y;
-            }
+        else if ((((Year - date2.Year) == 3) && (Year % 400 == 0 || Year % 4 == 0)) || (((Year - date2.Year) == 3) && ((date2.Year + 2) % 400 == 0 || (date2.Year + 2) % 4 == 0))){
+                difference.Day = (Day - date2.Day) + ((Year - date2.Year) * 365) + 1;
         }
-        else if (Year < date2.Year) {
-            int Y = (((date2.Year - Year) / 4) * 366) + (((date2.Year - Year) - ((date2.Year - Year) / 4)) * 365);
-            if (Day > date2.Day) {
-                difference.Day = (Day - date2.Day) + Y;
-            }
-            else if (Day < date2.Day) {
-                difference.Day = (date2.Day - Day) + Y;
-            }
+        else if ((((Year - date2.Year) == 3) && (Year % 400 != 0 || Year % 4 != 0)) || (((Year - date2.Year) == 3) && ((date2.Year + 2) % 400 != 0 || (date2.Year + 2) % 4 != 0))) {
+                difference.Day = (Day - date2.Day) + ((Year - date2.Year) * 365);
+        }
+        else if (((Year - date2.Year) == 2) && (Year % 400 == 0 || Year % 4 == 0)){
+                difference.Day = (Day - date2.Day) + ((Year - date2.Year) * 365) + 1;
+        }
+        else if (((Year - date2.Year) == 2) && (Year % 400 != 0 || Year % 4 != 0)){
+                difference.Day = (Day - date2.Day) + ((Year - date2.Year) * 365);
+        }
+        else if ((Year - date2.Year) == 1) {
+                difference.Day = (Day - date2.Day) + ((Year - date2.Year) * 365);
+        }
+    }
+    else if (Year < date2.Year) {
+        if ((date2.Year - Year) == 1 && (Month - date2.Month) == 11) {
+            difference.Day = (365 - Day) + date2.Day;
+        }
+        else if ((date2.Year - Year) >= 4) {
+                difference.Day = (date2.Day - Day) + ((date2.Year - Year) * 365) + ((date2.Year - Year) / 4);
+        }
+        else if ((((date2.Year - Year) == 3) && (date2.Year % 400 == 0 || date2.Year % 4 == 0)) || (((date2.Year - Year) == 3) && ((Year + 2) % 400 == 0 || (Year + 2) % 4 == 0))) {
+                difference.Day = (date2.Day - Day) + ((date2.Year - Year) * 365) + 1;
+        }
+        else if ((((date2.Year - Year) == 3) && (date2.Year % 400 != 0 || date2.Year % 4 != 0)) || (((date2.Year - Year) == 3) && ((date2.Year + 2) % 400 != 0 || (Year + 2) % 4 != 0))) {
+                difference.Day = (date2.Day - Day) + ((date2.Year - Year) * 365);
+        }
+        else if (((date2.Year - Year) == 2) && (date2.Year % 400 == 0 || date2.Year % 4 == 0)) {
+                difference.Day = (date2.Day - Day) + ((date2.Year - Year) * 365) + 1;
+        }
+        else if (((date2.Year - Year) == 2) && (date2.Year % 400 != 0 || date2.Year % 4 != 0)) {
+                difference.Day = (date2.Day - Day) + ((date2.Year - Year) * 365);
+        }
+        else if ((date2.Year - Year) == 1) {
+                difference.Day = (date2.Day - Day) + ((date2.Year - Year) * 365);
+            
         }
     }
     return difference;
@@ -206,6 +219,8 @@ Date Date::operator+(int quantity)
         int leapYear1[] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };//високосный год
         int leapYear2[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };//не високосный год
         int M = Month - 1;
+
+
         if ((Day + quantity) >= leapYear2[M]) {
             if (Month != 12) {
                 Day = Day + quantity;
